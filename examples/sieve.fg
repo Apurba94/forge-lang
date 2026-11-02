@@ -1,0 +1,26 @@
+// Count the primes below a limit with the sieve of Eratosthenes.
+struct Stats { count: int, largest: int }
+
+fn sieve(limit: int) -> Stats {
+    let flags: [bool] = [];
+    for i in 0..limit { push(flags, true); }
+    let result = Stats { count: 0, largest: 0 };
+    for i in 2..limit {
+        if flags[i] {
+            result.count = result.count + 1;
+            result.largest = i;
+            let mut j = i * i;
+            while j < limit {
+                flags[j] = false;
+                j = j + i;
+            }
+        }
+    }
+    return result;
+}
+
+fn main() {
+    let s = sieve(1000);
+    print("primes below 1000: " + to_str(s.count));
+    print("largest: " + to_str(s.largest));
+}
